@@ -1,18 +1,17 @@
 package itunes;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.*;
 
 public class SearchAPITestPlan {
 
 	// I have put in very basic validations in the tests below.
-	
+
 	@Test
-	public void testNoParamtersPassed() {
-		String response = new SearchAPIClient().search("");
+	public void testAllParameters() {
+		String response = new SearchAPIClient().search("term=Jack&country=GB&media=movie&limit=1");
 		Assert.assertNotNull(response);
-		Assert.assertTrue(response.contains("resultCount\":0"));
-		Assert.assertTrue(response.contains("results\": []"));
+		Assert.assertFalse(response.contains("resultCount\":0"));
+		Assert.assertFalse(response.contains("results\": []"));
 	}
 
 	@Test
@@ -24,16 +23,16 @@ public class SearchAPITestPlan {
 	}
 
 	@Test
-	public void testTermOnly() {
-		String response = new SearchAPIClient().search("term=Jack");
+	public void testNoParamtersPassed() {
+		String response = new SearchAPIClient().search("");
 		Assert.assertNotNull(response);
-		Assert.assertFalse(response.contains("resultCount\":0"));
-		Assert.assertFalse(response.contains("results\": []"));
+		Assert.assertTrue(response.contains("resultCount\":0"));
+		Assert.assertTrue(response.contains("results\": []"));
 	}
 
 	@Test
-	public void testAllParameters() {
-		String response = new SearchAPIClient().search("term=Jack&country=GB&media=movie&limit=1");
+	public void testTermOnly() {
+		String response = new SearchAPIClient().search("term=Jack");
 		Assert.assertNotNull(response);
 		Assert.assertFalse(response.contains("resultCount\":0"));
 		Assert.assertFalse(response.contains("results\": []"));
